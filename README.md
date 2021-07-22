@@ -3,6 +3,11 @@ Ask GPT-3 a question, and it answers based on summary of first Google result
 
 Requires an OpenAI GPT-3 API key.
 
+Prerequisite:
+```
+npm install -g readability-cli
+```
+
 Usage:
 
 ```
