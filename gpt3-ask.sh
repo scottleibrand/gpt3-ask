@@ -10,7 +10,7 @@ length="${lengtharg:-6000}"
 prompt=$( echo "Q: $1"
     echo -n "A:" )
 data=$(echo -n "$prompt" | jq -R -s ". | {prompt: ., max_tokens: 150, temperature: 0.7, stop: \"Q:\"}")
-guess=$(curl -s https://api.openai.com/v1/engines/davinci/completions \
+guess=$(curl -s https://api.openai.com/v1/engines/davinci-codex/completions \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer $GPT_API_KEY" \
 -d "$data")
@@ -39,4 +39,5 @@ done
 echo "Based on the first Google result:"
 echo "Q: $1"
 echo -n "A:"
-cat summary.json | jq ".choices[].text" | perl -p00e "s/\\\n/\n/g" | sed 's/"//g' || cat summary.json
+cat summary.json | jq ".choices[].text" | perl -p00e "s/\\\n/\n/g" | sed 's/"//g'
+grep error summary.json && cat summary.json | jq .
